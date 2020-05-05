@@ -1,4 +1,4 @@
-# Cybernetor
+# Cybernator
 ![](https://img.shields.io/badge/python-%3E%3D%203.7-blue) ![](https://img.shields.io/badge/discord.py-%3E%3D1.3.2-blue)
 
 Простая обёртка для создания Help команды в Discord.py.
