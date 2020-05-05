@@ -20,7 +20,7 @@ pip install Cybernator
 |    timeout `<optional>`   |                    `int`                    | `30`секунд |        Время после которого Paginator заканчивает работу.           |
 |   use_more `<optional>`   |                    `bool`                   |   `False`  |            Добавление 2/4 реакций (По умолчанию 2)                  |
 |delete_message `<optional>`|                    `bool`                   |   `False`  |Удалить Paginator по истечении таймера(если False, то уберет реакции)|
-|    author `<optional>`    |                    `list`                   |   `None`   |              Информация о том, кто вызвал команду                   |
+|    author                 |                    `list`                   |   `None`   |              Информация о том, кто вызвал команду                   |
 |  time_stamp `<optional>`  |                    `bool`                   |   `False`  |                 Добавление времени вызова команды                   |
 |    footer `<optional>`    |                    `bool`                   |   `True`   |                     Подпись Раздел-Страница                         |
 
