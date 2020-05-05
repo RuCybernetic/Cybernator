@@ -4,7 +4,7 @@
 Простая обёртка для создания Help команды в Discord.py.
 
 ## Установка
-![](https://img.shields.io/badge/ver.-0.1-blue)
+![](https://img.shields.io/badge/ver.-0.2-blue)
 ```
 pip install Cybernator
 ```
