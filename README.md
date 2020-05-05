@@ -27,6 +27,7 @@ pip install Cybernator
 ### Примеры использования
 
 1. С 2'мя реакциями
+
 ```py
 import discord
 from discord.ext import commands
@@ -45,10 +46,13 @@ async def test(ctx):
     page = Paginator(bot, message, author=ctx, use_more=False, embeds=embeds)
     await page.start()
 
-bot.run(token)```
+bot.run(token)
+```
+
 ![2 Реакции](https://github.com/RuCybernetic/myhelp/blob/master/Cybernetori/2reaction.gif)
 
 2. С 4'мя реакциями
+
 ```py
 import discord
 from discord.ext import commands
@@ -70,7 +74,9 @@ async def test(ctx):
     page = Paginator(bot, message, author=ctx, use_more=True, embeds=embeds)
     await page.start()
 
-bot.run(token)```
+bot.run(token)
+```
+
 ![4 Реакции](https://github.com/RuCybernetic/myhelp/blob/master/Cybernetori/4reaction.gif)
 
 ## Контакт
