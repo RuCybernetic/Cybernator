@@ -10,7 +10,7 @@ class Cyberad(Exception):
     pass
 
 
-class Paginator:   
+class Paginator:
     def __init__(
             self,
             ctx,
@@ -20,25 +20,29 @@ class Paginator:
             use_more: bool = False,
             only: discord.abc.User = None,
             delete_message: bool = False,
-            author: list = None,
             time_stamp: bool = False,
             footer: bool = True,
+            reactions: list = ["⬅", "➡"],
+            more_reactions: list = ["⬅", "➡", "⏪", "⏩"],
+            language: str = 'ru',
+            color: int = None
     ):
         self.ctx = ctx
         self.message = message
         self.timeout = timeout
-        self.reactions = ["⬅️", "➡️"]
-        self.more_reactions = ["⬅️", "➡️", "⏪", "⏩"]
+        self.reactions = reactions
+        self.more_reactions = more_reactions
         self.index = 0
         self.index_page = 0
         self.embeds = embeds
         self.use_more = use_more
         self.only = only
         self.delete_message = delete_message
-        self.author = author
         self.time_stamp = time_stamp
         self.footer = footer
-        
+        self.language = language
+        self.color = color
+
         if embeds is None:
             raise Cybered('Cybernetic съел ваш embeds.')
         if not isinstance(self.timeout, int):
@@ -46,10 +50,10 @@ class Paginator:
         if self.only is not None:
             if not isinstance(self.only, discord.abc.User):
                 raise TypeError
-                
+
     def emoji_checker(self, payload):
         if payload.user_id == self.ctx.user.id:
-            return False       
+            return False
         if payload.message_id != self.message.id:
             return False
         if self.only is not None:
@@ -57,12 +61,10 @@ class Paginator:
                 return False
         if self.use_more:
             if str(payload.emoji) in self.more_reactions:
-                if self.author.author.id == payload.user_id:
-                    return True
+                return True
         else:
             if str(payload.emoji) in self.reactions:
-                if self.author.author.id == payload.user_id:
-                    return True
+                return True
         return False
 
     async def add_reactions(self):
@@ -76,17 +78,15 @@ class Paginator:
 
     async def start(self):
         try:
-            if self.footer is True:
-                self.embeds[self.index].set_footer(text=f'Раздел: [{1+self.index}/{len(self.embeds)}]')
-            if self.time_stamp is True:
-                self.embeds[self.index].timestamp = self.message.created_at
-            await self.message.edit(embed=self.embeds[self.index])
+            if self.language == 'ru':
+                await self.section_ru()
+            else:
+                await self.section_en()
         except:
-            if self.footer is True:
-                self.embeds[self.index][self.index_page].set_footer(text=f'Раздел: [{1+self.index}/{len(self.embeds)}] Страница: [{1+self.index_page}/{len(self.embeds[self.index])}]')
-            if self.time_stamp is True:
-                self.embeds[self.index][self.index_page].timestamp = self.message.created_at
-            await self.message.edit(embed=self.embeds[self.index][self.index_page])
+            if self.language == 'ru':
+                await self.page_ru()
+            else:
+                await self.page_en()
         await self.add_reactions()
 
         while True:
@@ -123,42 +123,45 @@ class Paginator:
                     break
 
     async def pagination(self, emoji):
-        if str(emoji) == "⬅️":
-            await self.go_previous()
-        elif str(emoji) == "➡️":
-            await self.go_next()
-        elif str(emoji) == "⏪":
-            await self.go_previous2()
-        elif str(emoji) == "⏩":
-            await self.go_next2()
-                
+        if self.use_more:
+            if str(emoji) == str(self.more_reactions[0]):
+                await self.go_previous()
+            elif str(emoji) == str(self.more_reactions[1]):
+                await self.go_next()
+            elif str(emoji) == str(self.more_reactions[2]):
+                await self.go_previous2()
+            elif str(emoji) == str(self.more_reactions[3]):
+                await self.go_next2()
+        else:
+            if str(emoji) == str(self.reactions[0]):
+                await self.go_previous()
+            elif str(emoji) == str(self.reactions[1]):
+                await self.go_next()
+
     async def go_previous(self):
         if self.index != 0:
             self.index -= 1
             try:
-                if self.footer is True:
-                    self.embeds[self.index].set_footer(text=f'Раздел: [{1+self.index}/{len(self.embeds)}]')
-                if self.time_stamp is True:
-                    self.embeds[self.index].timestamp = self.message.created_at
-                await self.message.edit(embed=self.embeds[self.index])
+                if self.language == 'ru':
+                    await self.section_ru()
+                else:
+                    await self.section_en()
             except:
                 self.index_page = 0
-                if self.footer is True:
-                    self.embeds[self.index][self.index_page].set_footer(text=f'Раздел: [{1+self.index}/{len(self.embeds)}] Страница: [{1+self.index_page}/{len(self.embeds[self.index])}]')
-                if self.time_stamp is True:
-                    self.embeds[self.index][self.index_page].timestamp = self.message.created_at
-                await self.message.edit(embed=self.embeds[self.index][self.index_page])
+                if self.language == 'ru':
+                    await self.page_ru()
+                else:
+                    await self.page_en()
 
     async def go_next2(self):
         try:
             if self.embeds[self.index][self.index_page]:
                 if self.index_page != len(self.embeds[self.index][self.index_page]) - 1:
                     self.index_page += 1
-                    if self.footer is True:
-                        self.embeds[self.index][self.index_page].set_footer(text=f'Раздел: [{1+self.index}/{len(self.embeds)}] Страница: [{1+self.index_page}/{len(self.embeds[self.index])}]')
-                    if self.time_stamp is True:
-                        self.embeds[self.index][self.index_page].timestamp = self.message.created_at
-                    await self.message.edit(embed=self.embeds[self.index][self.index_page])
+                    if self.language == 'ru':
+                        await self.page_ru()
+                    else:
+                        await self.page_en()
         except:
             pass
 
@@ -166,27 +169,62 @@ class Paginator:
         try:
             if self.index != len(self.embeds) - 1:
                 self.index += 1
-                if self.footer is True:
-                    self.embeds[self.index].set_footer(text=f'Раздел: [{1+self.index}/{len(self.embeds)}]')
-                if self.time_stamp is True:
-                    self.embeds[self.index].timestamp = self.message.created_at
-                await self.message.edit(embed=self.embeds[self.index])
+                if self.language == 'ru':
+                    await self.section_ru()
+                else:
+                    await self.section_en()
         except:
             self.index_page = 0
-            if self.footer is True:
-                self.embeds[self.index][self.index_page].set_footer(text=f'Раздел: [{1+self.index}/{len(self.embeds)}] Страница: [{1+self.index_page}/{len(self.embeds[self.index])}]')
-            if self.time_stamp is True:
-                self.embeds[self.index][self.index_page].timestamp = self.message.created_at
-            await self.message.edit(embed=self.embeds[self.index][self.index_page])
-                
+            if self.language == 'ru':
+                await self.page_ru()
+            else:
+                await self.page_en()
+
     async def go_previous2(self):
         if self.index_page != 0:
             self.index_page -= 1
             try:
-                if self.footer is True:
-                    self.embeds[self.index][self.index_page].set_footer(text=f'Раздел: [{1+self.index}/{len(self.embeds)}] Страница: [{1+self.index_page}/{len(self.embeds[self.index])}]')
-                if self.time_stamp is True:
-                    self.embeds[self.index][self.index_page].timestamp = self.message.created_at
-                await self.message.edit(embed=self.embeds[self.index][self.index_page])
+                if self.language == 'ru':
+                    await self.page_ru()
+                else:
+                    await self.page_en()
             except:
                 pass
+
+    async def section_ru(self):
+        if self.footer is True:
+            self.embeds[self.index].set_footer(text=f'Раздел: [{1 + self.index}/{len(self.embeds)}]')
+        if self.time_stamp is True:
+            self.embeds[self.index].timestamp = self.message.created_at
+        if self.color is not None:
+            self.embeds[self.index].colour = self.color
+        return await self.message.edit(embed=self.embeds[self.index])
+
+    async def section_en(self):
+        if self.footer is True:
+            self.embeds[self.index].set_footer(text=f'Section: [{1 + self.index}/{len(self.embeds)}]')
+        if self.time_stamp is True:
+            self.embeds[self.index].timestamp = self.message.created_at
+        if self.color is not None:
+            self.embeds[self.index].colour = self.color
+        return await self.message.edit(embed=self.embeds[self.index])
+
+    async def page_ru(self):
+        if self.footer is True:
+            self.embeds[self.index][self.index_page].set_footer(
+                text=f'Раздел: [{1 + self.index}/{len(self.embeds)}] Страница: [{1 + self.index_page}/{len(self.embeds[self.index])}]')
+        if self.time_stamp is True:
+            self.embeds[self.index][self.index_page].timestamp = self.message.created_at
+        if self.color is not None:
+            self.embeds[self.index][self.index_page].colour = self.color
+        return await self.message.edit(embed=self.embeds[self.index][self.index_page])
+
+    async def page_en(self):
+        if self.footer is True:
+            self.embeds[self.index][self.index_page].set_footer(
+                text=f'Section: [{1 + self.index}/{len(self.embeds)}] Page: [{1 + self.index_page}/{len(self.embeds[self.index])}]')
+        if self.time_stamp is True:
+            self.embeds[self.index][self.index_page].timestamp = self.message.created_at
+        if self.color is not None:
+            self.embeds[self.index][self.index_page].colour = self.color
+        return await self.message.edit(embed=self.embeds[self.index][self.index_page])
