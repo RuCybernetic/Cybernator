@@ -47,7 +47,7 @@ async def test(ctx):
     embed4 = discord.Embed(title="Страница 4", description='test 4')
     embeds = [embed1, embed2, embed3, embed4]
     message = await ctx.send(embed=embed1)
-    page = Paginator(bot, message, author=ctx, use_more=False, embeds=embeds)
+    page = Paginator(bot, message, only=ctx.author, use_more=False, embeds=embeds)
     await page.start()
 
 bot.run(token)
@@ -75,7 +75,7 @@ async def test(ctx):
     embed34 = discord.Embed(title="Страница 3.4", description='test 3.4')
     embeds = [embed1, [embed21, embed22], [embed31, embed32, embed33, embed34]]
     message = await ctx.send(embed=embed1)
-    page = Paginator(bot, message, author=ctx, use_more=True, embeds=embeds)
+    page = Paginator(bot, message, only=ctx.author, use_more=True, embeds=embeds)
     await page.start()
 
 bot.run(token)
