@@ -18,12 +18,14 @@ class Paginator:
             embeds: list = None,
             timeout: int = 30,
             use_more: bool = False,
+            use_exit: bool = False,
             only: discord.abc.User = None,
             delete_message: bool = False,
             time_stamp: bool = False,
             footer: bool = True,
             reactions: list = ["⬅", "➡"],
             more_reactions: list = ["⬅", "➡", "⏪", "⏩"],
+            exit_reaction: list = ["⏹"],
             language: str = 'ru',
             color: int = None
     ):
@@ -32,10 +34,12 @@ class Paginator:
         self.timeout = timeout
         self.reactions = reactions
         self.more_reactions = more_reactions
+        self.exit_reaction = exit_reaction
         self.index = 0
         self.index_page = 0
         self.embeds = embeds
         self.use_more = use_more
+        self.use_exit = use_exit
         self.only = only
         self.delete_message = delete_message
         self.time_stamp = time_stamp
@@ -65,15 +69,22 @@ class Paginator:
         else:
             if str(payload.emoji) in self.reactions:
                 return True
+        if self.use_exit:
+            if str(payload.emoji) in self.exit_reaction:
+                return True
         return False
 
     async def add_reactions(self):
         if self.use_more:
             for i in self.more_reactions:
                 await self.message.add_reaction(i)
+            if self.use_exit:
+                await self.message.add_reaction(self.exit_reaction[0])
         else:
             for i in self.reactions:
                 await self.message.add_reaction(i)
+            if self.use_exit:
+                await self.message.add_reaction(self.exit_reaction[0])
         return True
 
     async def start(self):
@@ -132,11 +143,15 @@ class Paginator:
                 await self.go_previous2()
             elif str(emoji) == str(self.more_reactions[3]):
                 await self.go_next2()
+            elif str(emoji) == str(self.exit_reaction[0]):
+                raise asyncio.TimeoutError
         else:
             if str(emoji) == str(self.reactions[0]):
                 await self.go_previous()
             elif str(emoji) == str(self.reactions[1]):
                 await self.go_next()
+            elif str(emoji) == str(self.exit_reaction[0]):
+                raise asyncio.TimeoutError
 
     async def go_previous(self):
         if self.index != 0:
