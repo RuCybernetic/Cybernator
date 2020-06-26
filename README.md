@@ -29,6 +29,7 @@ pip install Cybernator
 | exit_reaction `<optional>`|                    `list`                   |["⏹"]|           Можно стандартный смайлик поменять на свой    |
 |   language `<optional>`   |                     `str`                   |    `ru`    |                     Выбор языка (`ru`, `en`)                        |
 |     color `<optional>`    |                     `int`                   |   `None`   |      Можно установить 1 цвет на все страницы, HEX (0x000000)        |
+|   footer_icon `<optional>`   |                     `str`                   |    `None`    |  URL-адрес значка нижнего колонтитула. Поддерживается только HTTP(S).    |
 
 ### Примеры использования
 
