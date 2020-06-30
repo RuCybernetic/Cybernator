@@ -87,6 +87,8 @@ bot.run(token)
 ![4 Реакции](https://github.com/RuCybernetic/myhelp/blob/master/Cybernetori/4reaction.gif)
 
 
+[![Watch the video](https://img.youtube.com/vi/MghAD83ySiQ/maxresdefault.jpg)](https://youtu.be/MghAD83ySiQ)
+
 ## Source
 The code is taken as a basis: [EZPaginator](https://github.com/khk4912/EZPaginator)
 
