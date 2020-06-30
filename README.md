@@ -86,7 +86,6 @@ bot.run(token)
 
 ![4 Реакции](https://github.com/RuCybernetic/myhelp/blob/master/Cybernetori/4reaction.gif)
 
-<iframe width="1802" height="810" src="https://www.youtube.com/embed/MghAD83ySiQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Source
 The code is taken as a basis: [EZPaginator](https://github.com/khk4912/EZPaginator)
