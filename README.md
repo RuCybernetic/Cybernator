@@ -98,4 +98,5 @@ Discord -> RuCybernetic#4785
 ## Доп. материалы
 
 [![Watch the video](https://img.youtube.com/vi/MghAD83ySiQ/maxresdefault.jpg)](https://youtu.be/MghAD83ySiQ)
+[<img src="https://img.youtube.com/vi/MghAD83ySiQ/maxresdefault.jpg" width="50%">](https://youtu.be/MghAD83ySiQ)
 
