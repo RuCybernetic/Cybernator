@@ -124,7 +124,10 @@ class Paginator:
 
                 payload = done.pop().result()
                 await self.pagination(payload.emoji)
-                await self.message.remove_reaction(payload.emoji, payload.member)
+                try:
+                    await self.message.remove_reaction(payload.emoji, payload.member)
+                except AttributeError:
+                    pass
 
             except asyncio.TimeoutError:
                 try:
@@ -142,37 +145,43 @@ class Paginator:
                                 await self.page_en()
                             else:
                                 await self.section_en()
-                        await self.message.clear_reactions()
+                        if self.message.guild:
+                            await self.message.clear_reactions()
+                        else:
+                            pass
                     break
                 except:
                     if self.language == 'ru':
                         await self.section_ru()
                     else:
                         await self.section_en()
-                    await self.message.clear_reactions()
-                    break
+                    if self.message.guild:
+                        await self.message.clear_reactions()
+                    else:
+                        pass
+                break
 
     async def pagination(self, emoji):
         if self.use_more:
             if str(emoji) == str(self.more_reactions[0]):
-                await self.go_previous()
+                await self.go_section_previous()
             elif str(emoji) == str(self.more_reactions[1]):
-                await self.go_next()
+                await self.go_section_next()
             elif str(emoji) == str(self.more_reactions[2]):
-                await self.go_previous2()
+                await self.go_page_previous()
             elif str(emoji) == str(self.more_reactions[3]):
-                await self.go_next2()
+                await self.go_page_next()
             elif str(emoji) == str(self.exit_reaction[0]):
                 raise asyncio.TimeoutError
         else:
             if str(emoji) == str(self.reactions[0]):
-                await self.go_previous()
+                await self.go_section_previous()
             elif str(emoji) == str(self.reactions[1]):
-                await self.go_next()
+                await self.go_section_next()
             elif str(emoji) == str(self.exit_reaction[0]):
                 raise asyncio.TimeoutError
 
-    async def go_previous(self):
+    async def go_section_previous(self):
         if self.index != 0:
             self.index -= 1
             try:
@@ -187,7 +196,7 @@ class Paginator:
                 else:
                     await self.page_en()
 
-    async def go_next2(self):
+    async def go_page_next(self):
         try:
             if self.embeds[self.index][self.index_page]:
                 if self.index_page != len(self.embeds[self.index][self.index_page]) - 1:
@@ -199,7 +208,7 @@ class Paginator:
         except:
             pass
 
-    async def go_next(self):
+    async def go_section_next(self):
         try:
             if self.index != len(self.embeds) - 1:
                 self.index += 1
@@ -214,7 +223,7 @@ class Paginator:
             else:
                 await self.page_en()
 
-    async def go_previous2(self):
+    async def go_page_previous(self):
         if self.index_page != 0:
             self.index_page -= 1
             try:
@@ -228,7 +237,8 @@ class Paginator:
     async def section_ru(self):
         if self.footer is True:
             if self.is_time_up:
-                self.embeds[self.index].set_footer(text=f'Раздел: [{1 + self.index}/{len(self.embeds)}] [Время вышло]', icon_url=self.footer_icon if self.footer_icon is not None else '')
+                self.embeds[self.index].set_footer(text=f'Раздел: [{1 + self.index}/{len(self.embeds)}] [Время вышло]',
+                                                   icon_url=self.footer_icon if self.footer_icon is not None else '')
             else:
                 self.embeds[self.index].set_footer(text=f'Раздел: [{1 + self.index}/{len(self.embeds)}]',
                                                    icon_url=self.footer_icon if self.footer_icon is not None else '')
@@ -241,7 +251,8 @@ class Paginator:
     async def section_en(self):
         if self.footer is True:
             if self.is_time_up:
-                self.embeds[self.index].set_footer(text=f'Section: [{1 + self.index}/{len(self.embeds)}] [Time`s up]', icon_url=self.footer_icon if self.footer_icon is not None else '')
+                self.embeds[self.index].set_footer(text=f'Section: [{1 + self.index}/{len(self.embeds)}] [Time`s up]',
+                                                   icon_url=self.footer_icon if self.footer_icon is not None else '')
             else:
                 self.embeds[self.index].set_footer(text=f'Section: [{1 + self.index}/{len(self.embeds)}]',
                                                    icon_url=self.footer_icon if self.footer_icon is not None else '')
@@ -254,7 +265,9 @@ class Paginator:
     async def page_ru(self):
         if self.footer is True:
             if self.is_time_up:
-                self.embeds[self.index][self.index_page].set_footer(text=f'Раздел: [{1 + self.index}/{len(self.embeds)}] Страница: [{1 + self.index_page}/{len(self.embeds[self.index])}] [Время вышло]', icon_url=self.footer_icon if self.footer_icon is not None else '')
+                self.embeds[self.index][self.index_page].set_footer(
+                    text=f'Раздел: [{1 + self.index}/{len(self.embeds)}] Страница: [{1 + self.index_page}/{len(self.embeds[self.index])}] [Время вышло]',
+                    icon_url=self.footer_icon if self.footer_icon is not None else '')
             else:
                 self.embeds[self.index][self.index_page].set_footer(
                     text=f'Раздел: [{1 + self.index}/{len(self.embeds)}] Страница: [{1 + self.index_page}/{len(self.embeds[self.index])}]',
@@ -268,9 +281,13 @@ class Paginator:
     async def page_en(self):
         if self.footer is True:
             if self.is_time_up:
-                self.embeds[self.index][self.index_page].set_footer(text=f'Section: [{1 + self.index}/{len(self.embeds)}] Page: [{1 + self.index_page}/{len(self.embeds[self.index])}] [Time`s up]', icon_url=self.footer_icon if self.footer_icon is not None else '')
+                self.embeds[self.index][self.index_page].set_footer(
+                    text=f'Section: [{1 + self.index}/{len(self.embeds)}] Page: [{1 + self.index_page}/{len(self.embeds[self.index])}] [Time`s up]',
+                    icon_url=self.footer_icon if self.footer_icon is not None else '')
             else:
-                self.embeds[self.index][self.index_page].set_footer(text=f'Section: [{1 + self.index}/{len(self.embeds)}] Page: [{1 + self.index_page}/{len(self.embeds[self.index])}]', icon_url=self.footer_icon if self.footer_icon is not None else '')
+                self.embeds[self.index][self.index_page].set_footer(
+                    text=f'Section: [{1 + self.index}/{len(self.embeds)}] Page: [{1 + self.index_page}/{len(self.embeds[self.index])}]',
+                    icon_url=self.footer_icon if self.footer_icon is not None else '')
         if self.time_stamp is True:
             self.embeds[self.index][self.index_page].timestamp = self.message.created_at
         if self.color is not None:
