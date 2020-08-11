@@ -1,10 +1,10 @@
 # Cybernator
-![](https://img.shields.io/badge/python-%3E%3D%203.7-blue) ![](https://img.shields.io/badge/discord.py-%3E%3D1.3.2-blue)
+![](https://img.shields.io/badge/python-%3E%3D%203.7, 3.8-blue) ![](https://img.shields.io/badge/discord.py-%3E%3D1.3.2-blue)
 
 Простая обёртка для создания Help команды в Discord.py.
 
 ## Установка
-![](https://img.shields.io/badge/ver.-0.5.2-blue)
+![](https://img.shields.io/badge/ver.-0.6.1-blue)
 ```
 pip install Cybernator
 ```
@@ -30,6 +30,7 @@ pip install Cybernator
 |   language `<optional>`   |                     `str`                   |    `ru`    |                     Выбор языка (`ru`, `en`)                        |
 |     color `<optional>`    |                     `int`                   |   `None`   |      Можно установить 1 цвет на все страницы, HEX (0x000000)        |
 |   footer_icon `<optional>`   |                     `str`                   |    `None`    |  URL-адрес значка нижнего колонтитула. Поддерживается только HTTP(S).    |
+|use_remove_reaction `<optional>`|             `bool`                 |   `True`   |   Отключает remove_reaction, пользователю придется самому убирать реакции |
 
 ### Примеры использования
 
