@@ -14,15 +14,15 @@ pip install Cybernator
 </p>
 
 
-## Source
-The code is taken as a basis: [EZPaginator](https://github.com/khk4912/EZPaginator)
+## Источник/Source
+[EZPaginator](https://github.com/khk4912/EZPaginator)
 
-## Контакт
-Discord -> RuCybernetic#4785
+## Контакт/Contact
+Discord -> [RuCybernetic#4785](https://discord.com/users/255356637089366016)
 
-## License
+## Лицензия/License
 [MIT License](https://github.com/RuCybernetic/Cybernetor/blob/master/LICENSE)
 
-## Доп. материалы
+## Доп. материалы (Ru)
 
 [<img src="https://img.youtube.com/vi/MghAD83ySiQ/maxresdefault.jpg" width="50%">](https://youtu.be/MghAD83ySiQ)
