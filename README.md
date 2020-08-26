@@ -8,8 +8,8 @@
 ```
 pip install Cybernator
 ```
-
-<p align="center">
+## Документация/Documentation
+<p>
     <a href="README_Ru.md">Русский</a> | <a href="README_En.md">English</a>
 </p>
 
