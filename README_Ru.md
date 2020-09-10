@@ -17,7 +17,7 @@
 |   language `<optional>`   |                     `str`                   |    `ru`    |                     Выбор языка (`ru`, `en`)                        |
 |     color `<optional>`    |                     `int`                   |   `None`   |      Можно установить 1 цвет на все страницы, HEX (0x000000)        |
 |   footer_icon `<optional>`   |                     `str`                   |    `None`    |  URL-адрес значка нижнего колонтитула. Поддерживается только HTTP(S).    |
-|use_remove_reaction `<optional>`|             `bool`                 |   `True`   |   Отключает remove_reaction, пользователю придется самому убирать реакции |
+|use_remove_reaction `<optional>`|             `bool`                 |   `True`   |   Отключает remove_reaction, пользовател будет сам убирать ркации. (Стоит ставить если боту запретили права на сервере) |
 
 ### Примеры использования
 
