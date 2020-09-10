@@ -1,10 +1,10 @@
 ### Параметры
-|           Имя             |                     Тип                     |По умолчанию|                           Информация                                |
+|           name             |                     type                     |Default|                           Information                                |
 |:-------------------------:|:-------------------------------------------:|:----------:|:-------------------------------------------------------------------:|
 |           ctx             | `discord.Client` `discord.ext.commands.Bot` |            |                                                                     |
 |         message           |              `discord.Message`              |            |       Message with your embeds         |
 |          embeds           |                    `list`                   |   `None`   |                        List of embeds                              |
-|    timeout `<optional>`   |                    `int`                    | `30`секунд |        Paginator timer          |
+|    timeout `<optional>`   |                    `int`                    | `30`seconds |        Paginator timer          |
 |   use_more `<optional>`   |                    `bool`                   |   `False`  |            Adding 2/4 reactions (Default 2)                 |
 |   use_exit `<optional>`   |                    `bool`                   |   `False`  |            Adding a reaction to disable the paginator                  |
 |delete_message `<optional>`|                    `bool`                   |   `False`  |Remove Paginator when the timer expires (if False, it will remove reactions)|
@@ -17,7 +17,7 @@
 |   language `<optional>`   |                     `str`                   |    `ru`    |                     Language selection (`ru`, `en`)                        |
 |     color `<optional>`    |                     `int`                   |   `None`   |      You can set 1 color for all pages, HEX (0x000000)        |
 |   footer_icon `<optional>`   |                     `str`                   |    `None`    |  The URL for the footer icon. Supported only HTTP(S).    |
-|use_remove_reaction `<optional>`|             `bool`                 |   `True`   |   Отключает remove_reaction, пользователю придется самому убирать реакции |
+|use_remove_reaction `<optional>`|             `bool`                 |   `True`   |   Disables remove_reaction, the user will remove the rules himself. (It should be set if the bot was denied rights on the server) |
 
 ### Examples of using
 
