@@ -3,27 +3,28 @@
 
 Простая обёртка для создания Help команды в Discord.py
 
-## Установка
+## Установка / Installation
 ![](https://img.shields.io/badge/ver.-0.6.2-blue)
 ```
 pip install Cybernator
 ```
-### Документация / Documentation
-## Paginator
+## Документация / Documentation
+### Paginator
 <p>
     <a href="README_Ru.md">Русский</a> | <a href="README_En.md">English</a>
 </p>
-## Rolegator
+### Rolegator
+
 ////////////////////////
 
-### Контакт/Contact
+## Контакт / Contact
 Discord -> [RuCybernetic#4785](https://discord.com/users/255356637089366016)
 
-### Лицензия / License
+## Лицензия / License
 [MIT License](https://github.com/RuCybernetic/Cybernetor/blob/master/LICENSE)
 
-### Источник / Source
+## Источник / Source
 Paginator - [EZPaginator](https://github.com/khk4912/EZPaginator)
 
-### Доп. материалы (Ru)
+## Доп. материалы (Ru)
 [<img src="https://img.youtube.com/vi/MghAD83ySiQ/maxresdefault.jpg" width="50%">](https://youtu.be/MghAD83ySiQ)
