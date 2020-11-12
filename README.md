@@ -9,9 +9,12 @@
 pip install Cybernator
 ```
 ### Документация / Documentation
+## Paginator
 <p>
     <a href="README_Ru.md">Русский</a> | <a href="README_En.md">English</a>
 </p>
+## Rolegator
+////////////////////////
 
 ### Контакт/Contact
 Discord -> [RuCybernetic#4785](https://discord.com/users/255356637089366016)
