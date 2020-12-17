@@ -28,7 +28,8 @@ class Paginator:
             more_reactions: list = ["⬅", "➡", "⏪", "⏩"],
             exit_reaction: list = ["⏹"],
             language: str = 'ru',
-            color: int = None
+            color: int = None,
+            use_remove_reaction: bool = True
     ):
         self.ctx = ctx
         self.message = message
@@ -49,6 +50,7 @@ class Paginator:
         self.language = language
         self.color = color
         self.footer_icon = footer_icon
+        self.use_remove_reaction = use_remove_reaction
 
         if embeds is None:
             raise Cybered('Cybernetic съел ваш embeds.')
@@ -125,7 +127,10 @@ class Paginator:
                 payload = done.pop().result()
                 await self.pagination(payload.emoji)
                 try:
-                    await self.message.remove_reaction(payload.emoji, payload.member)
+                    if self.use_remove_reaction:
+                        await self.message.remove_reaction(payload.emoji, payload.member)
+                    else:
+                        pass
                 except AttributeError:
                     pass
 
@@ -189,7 +194,8 @@ class Paginator:
                     await self.section_ru()
                 else:
                     await self.section_en()
-            except:
+            except Exception as e:
+                print(repr(e))
                 self.index_page = 0
                 if self.language == 'ru':
                     await self.page_ru()
@@ -205,7 +211,8 @@ class Paginator:
                         await self.page_ru()
                     else:
                         await self.page_en()
-        except:
+        except Exception as e:
+            print(repr(e))
             pass
 
     async def go_section_next(self):
@@ -216,7 +223,8 @@ class Paginator:
                     await self.section_ru()
                 else:
                     await self.section_en()
-        except:
+        except Exception as e:
+            print(repr(e))
             self.index_page = 0
             if self.language == 'ru':
                 await self.page_ru()
@@ -231,7 +239,8 @@ class Paginator:
                     await self.page_ru()
                 else:
                     await self.page_en()
-            except:
+            except Exception as e:
+                print(repr(e))
                 pass
 
     async def section_ru(self):
