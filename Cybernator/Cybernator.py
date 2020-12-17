@@ -161,7 +161,10 @@ class Paginator:
                     else:
                         await self.section_en()
                     if self.message.guild:
-                        await self.message.clear_reactions()
+                        if self.use_remove_reaction:
+                            await self.message.clear_reactions()
+                        else:
+                            pass
                     else:
                         pass
                 break
