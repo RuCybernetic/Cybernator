@@ -19,7 +19,7 @@ pip install Cybernator
 ////////////////////////
 
 ## Контакт / Contact
-Discord -> [RuCybernetic#4785](https://discord.com/users/255356637089366016)
+Discord -> [RuCybernetic#1240](https://discord.com/users/255356637089366016)
 
 ## Лицензия / License
 [MIT License](https://github.com/RuCybernetic/Cybernetor/blob/master/LICENSE)
